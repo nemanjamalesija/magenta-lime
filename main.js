@@ -172,20 +172,27 @@ volumeSlider.addEventListener('input', (e) => {
 
 /* Hide and display the playlist */
 
-const trackControl = document.querySelector('.tracklist-control');
-const tracklistOpen = trackControl.querySelector('.tracklist-control__open');
-const tracklistClose = trackControl.querySelector('.tracklist-control__close');
-
-const table = document.querySelector('table');
-
-tracklistOpen.addEventListener('click', () => {
-  table.classList.remove('hidden');
-  tracklistOpen.classList.add('hidden');
-  tracklistClose.classList.remove('hidden');
+document.querySelector('.button-tracklist').addEventListener('click', () => {
+  document.querySelectorAll('.hidden').forEach((item) => {
+    item.classList.toggle('showing');
+  });
+  document.querySelectorAll('.button-tracklist').forEach((item) => {
+    item.classList.toggle('button-close');
+  });
+  document.querySelectorAll('.main-grid').forEach((item) => {
+    item.classList.toggle('main-grid-open');
+  });
 });
 
-tracklistClose.addEventListener('click', () => {
-  table.classList.add('hidden');
-  tracklistOpen.classList.remove('hidden');
-  tracklistClose.classList.add('hidden');
+const btn = document.getElementById('tracklist');
+
+// ✅ Toggle button text on click
+btn.addEventListener('click', function handleClick() {
+  const initialText = 'Tracklist';
+
+  if (btn.textContent.includes(initialText)) {
+    btn.textContent = 'Close \u2716';
+  } else {
+    btn.textContent = initialText;
+  }
 });

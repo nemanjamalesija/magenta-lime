@@ -124,29 +124,53 @@
   }
   .wrapper {
     margin: 0 auto;
-    padding: 0 1rem;
+    max-width: 500px;
+  }
+  /* buttons */
+  .button-primary {
+    color: var(--magenta);
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--magenta);
+    border-radius: 10px;
+    text-align: center;
+    white-space: nowrap;
+    width: 170px;
+  }
+  .button-primary:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+  .button-fullwidth {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+    margin: 2rem auto;
   }
 }
-
 @layer nav {
+  /* these styles display at GREATER THAN 800PX or all the time */
   #top {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     gap: 1.5rem;
     font-family: var(--cursive);
-    max-width: 850px;
+    max-width: 600px;
     margin: 4rem auto;
   }
-
   #top ul {
-    display: none;
     list-style: none;
-    margin: 0;
+    margin: 0.5rem 0 0 0;
     padding: 0;
-    gap: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    gap: 1rem;
   }
-
   #top h1 {
     font-size: var(--h3);
     margin: 0;
@@ -154,7 +178,6 @@
   #top h1 a:hover {
     color: var(--lime);
   }
-
   #top a {
     display: block;
     text-decoration: none;
@@ -168,8 +191,8 @@
     padding-left: 1rem;
     display: none;
   }
-
-  @media (max-width: 1000px) {
+  /* where the hamburger button displays */
+  @media (max-width: 799px) {
     #mainMenuOpen {
       display: block;
       font-size: 2rem;
@@ -196,7 +219,6 @@
       opacity: 0;
       background: #000d;
       transition: left 0s 0.5s, opacity 0.5s;
-      z-index: 999;
     }
     /* transition from off screen to onscreen navbar */
     #mainMenuOpen:focus + nav,
@@ -240,48 +262,63 @@
       right: 0;
     }
   }
+
+  /* where the band name displays */
+  @media (min-width: 500px) {
+    .bandname {
+      display: inline;
+    }
+  }
 }
-@layer audio {
-  table {
-    border-collapse: collapse;
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto;
-    font-family: var(--cursive);
-  }
-
-  table caption {
-    visibility: hidden;
-  }
-
-  table th {
-    text-align: left;
-    font-family: var(--sans-serif);
-    color: var(--grey);
-    border-bottom: 1px solid var(--grey);
-    padding: 1rem 0;
-  }
-
-  table td {
-    padding: 1rem 0;
-  }
-
-  table tr td:last-child {
-    color: var(--magenta);
-    font-family: var(--serif);
-  }
-
+@layer cover {
   .cover {
     max-width: 500px;
     margin: 0 auto;
     padding-bottom: 2rem;
-    position: relative;
+    display: grid;
+    grid-template-rows: repeat (3, auto);
   }
-  @media (min-width: 700px) {
-    .cover img {
-      border: 2px solid var(--cyan);
+  .cover img {
+    border: 2px solid var(--cyan);
+    grid-column: 1/2;
+    grid-row: 1/3;
+  }
+  .icons {
+    grid-row: 1/3;
+    grid-column: 1/2;
+    justify-self: end;
+    padding-right: 1rem;
+  }
+  #audio-player-container {
+    grid-row: 3/4;
+    grid-column: 1/2;
+  }
+  .icons ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  .icons svg {
+    fill: var(--lime);
+  }
+  .icons svg:hover {
+    fill: var(--cyan);
+  }
+  @media (min-width: 800px) {
+    .icons {
+      margin-top: -2rem;
+    }
+    .icons ul {
+      flex-flow: row wrap;
     }
   }
+}
+@layer audio {
   #audio-player-container .controls {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -478,97 +515,10 @@
     background: var(--cyan);
   }
 }
-
-@layer tracklist {
-  .tracklist {
-    border: 1px solid var(--magenta);
-    padding: 0 1rem;
-  }
-
-  .tracklist:hover {
-    border-color: var(--cyan);
-  }
-
-  .tracklist-control {
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .tracklist-control:hover {
-    border-color: var(--cyan);
-  }
-
-  .tracklist-control:hover h2 {
-    color: var(--cyan);
-  }
-
-  .tracklist-control h2 {
-    font-size: var(--h5);
-    font-family: var(--serif);
-    color: var(--magenta);
-    margin: 0;
-    padding: 1.3rem 0;
-    cursor: pointer;
-  }
-
-  .tracklist-control__close {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.2rem;
-  }
-
-  .tracklist-control__close svg {
-    height: 1.6rem;
-    width: 1.6rem;
-  }
-
-  .hidden {
-    display: none;
-  }
-}
-
-@layer icons_audio {
-  .icons {
-    position: absolute;
-    top: 0;
-    right: 16px;
-  }
-
-  .icons ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .icons svg {
-    fill: var(--lime);
-  }
-
-  @media (min-width: 800px) {
-    .icons {
-      top: -4.5%;
-    }
-
-    .icons ul {
-      flex-direction: row;
-      gap: 2rem;
-    }
-  }
-}
-
 @layer reviews {
-  .imggroup {
-    margin-top: 2rem;
-  }
   .star {
     width: 18px;
   }
-  .featured-img {
-    display: none;
-  }
-
   .reviews {
     margin: 2rem auto;
     display: flex;
@@ -581,6 +531,9 @@
     display: none;
   }
   @media (min-width: 800px) {
+    .wrapper {
+      max-width: 800px;
+    }
     .hidemobile {
       display: block;
     }
@@ -595,78 +548,181 @@
     .hidetablet {
       display: block;
     }
+    .wrapper {
+      max-width: 1440px;
+    }
   }
-  @media (min-width: 1025px) {
-    .reviews {
-      display: flex;
-      align-items: center;
+}
+@layer tracklist {
+  .button-tracklist {
+    display: block;
+    border: none;
+    font-family: var(--serif);
+    text-transform: uppercase;
+    width: 100%;
+    color: var(--magenta);
+    background-color: transparent;
+    font-size: var(--h5);
+    padding: 1rem;
+  }
+  .button-tracklist:hover {
+    color: var(--cyan);
+  }
+  .tracklist {
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    border: 2px solid var(--magenta);
+  }
+  .tracklist:hover {
+    border-color: var(--cyan);
+  }
+  .hidden {
+    display: none;
+  }
+  .showing {
+    display: table;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: -4rem auto 1rem auto;
+    font-family: var(--cursive);
+  }
+  caption,
+  th {
+    visibility: collapse;
+    /* the accessible way of hiding this but still visible to screen readers */
+  }
+  td {
+    padding: 1rem 0;
+  }
+  td:last-of-type {
+    font-family: var(--serif);
+    color: var(--magenta);
+    font-weight: 600;
+    text-align: right;
+  }
+}
+@layer main-grid {
+  @media (min-width: 800px) {
+    .main-grid {
+      display: grid;
+      grid-template-columns: 100px 500px;
+      max-width: 600px;
+      gap: 0;
+      margin: 0 auto;
+      transition: all 0.5s ease;
     }
-    .reviews figure:first-of-type,
-    .reviews figure:last-of-type,
-    .reviews figure:nth-of-type(3),
-    .reviews figure:nth-of-type(2) {
-      padding: 1rem;
+    .main-grid-open {
+      grid-template-columns: 300px 500px;
+      max-width: 800px;
+      transition: all 0.5s ease;
     }
-    .reviews .featured-img {
-      position: relative;
-      right: 1.5rem;
+    .cover {
+      order: 2;
+    }
+    .tracklist {
+      height: 500px;
+      justify-self: end;
+      padding: 0rem;
+      margin: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .button-tracklist {
+      transform: rotate(90deg);
+      display: block;
+      margin: 0;
+      padding: 0;
+      margin-top: 225px;
+      transition: all 0.5s ease;
+    }
+    .button-close {
+      transform: rotate(0deg);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      background-color: var(--cyan);
+      color: var(--black);
+      margin-top: 0px;
+      transition: all 0.5s ease;
+    }
+    .tracklist table {
+      margin: -4rem 1rem 0.5rem 1rem;
+    }
+    .tracklist table td:last-of-type {
+      padding-right: 2rem;
+    }
+    /* scrollbars for Webkit browsers
+  h/t https://ishadeed.com/article/custom-scrollbars-css/
+  */
+    .tracklist::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .tracklist::-webkit-scrollbar-track {
+      background-color: var(--cyan);
+    }
+
+    .tracklist::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
+    }
+    /* scrollbar for Firefox */
+    html {
+      scrollbar-color: var(--cyan) var(--grey);
+      scrollbar-width: thin;
     }
   }
 }
 @layer album {
   .album {
     border: 2px solid var(--cyan);
-    max-width: 500px;
-    margin: 3rem auto 1rem auto;
+    margin: 2rem auto;
     padding: 1rem;
-    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    overflow: hidden;
   }
 
+  /* double border on corners - Create 4 boxes from the before/after nodes on the album container and the album's first child (h2) */
   .album::before,
   .album::after,
   .album > :first-child::before,
   .album > :first-child::after {
-    content: '';
+    position: absolute;
+    /* change width and height to control corner size */
     width: 40px;
     height: 40px;
-    position: absolute;
+    /* border requires color, style, width to display - here we set color and style only */
     border-color: var(--cyan);
     border-style: solid;
+    /* box requires some content to display */
+    content: ' ';
+    /* controls space between inner and outer borders */
     margin: 0.25rem;
   }
-
+  /* now for each box, display it in its location and display the border on only 2 sides */
   .album::before {
     top: 0;
-    right: 0;
-    border-width: 2px 2px 0 0;
+    left: 0;
+    border-width: 1px 0 0 1px;
   }
-
   .album::after {
+    top: 0;
+    right: 0;
+    border-width: 1px 1px 0 0;
+  }
+  .album > :first-child::before {
     bottom: 0;
     right: 0;
-    border-width: 0 2px 2px 0;
+    border-width: 0 1px 1px 0;
   }
-
-  .album > :first-child::before {
-    top: 0;
-    left: 0;
-    border-width: 2px 0 0px 2px;
-  }
-
   .album > :first-child::after {
     bottom: 0;
     left: 0;
-    border-width: 0 0 2px 2px;
-  }
-
-  .album img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
+    border-width: 0 0 1px 1px;
   }
   .album h1 {
     color: var(--lime);
@@ -680,40 +736,136 @@
     font-size: var(--h6);
     font-family: var(--cursive);
   }
-
-  .button-primary {
-    color: var(--magenta);
-    font-weight: 600;
-    text-transform: uppercase;
-    display: inline-block;
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    border: 2px solid var(--magenta);
-    border-radius: 10px;
-    text-align: center;
-    white-space: nowrap;
-    width: 170px;
+  .maglime {
+    background: url(https://assets.codepen.io/296057/fem-blindfold-1200.jpg)
+      no-repeat;
+    background-size: cover;
   }
-  .button-primary:hover {
-    border-color: var(--cyan);
-    color: var(--cyan);
-  }
-
-  .btn-fullwidth {
-    max-width: 500px;
-    width: 100%;
-    display: block;
+  .bolt-lg {
+    width: 155px;
     margin: 2rem auto;
-    border-radius: 0;
+  }
+  @media (min-width: 800px) {
+    .maglime {
+      height: 300px;
+    }
+  }
+}
+@layer diamonds {
+  .diamond-container {
+    --sq: 200px;
+    --sq-gap: 1rem;
+    --max-width: 325px;
+    max-width: var(--max-width);
+    margin: 2rem auto;
+  }
+  .diamond-border {
+    border: 2px solid var(--cyan);
+  }
+  .diamonds li {
+    list-style: none;
+    width: var(--sq);
+    height: var(--sq);
+    margin-bottom: var(--sq-gap);
   }
 
-  .bolt-album {
-    text-align: center;
+  .diamonds li:nth-child(odd) {
+    transform: rotate(4deg);
+  }
+  .diamonds li:nth-child(even) {
+    transform: rotate(-6deg);
+  }
+  .diamonds li:first-child {
+    background: url('https://assets.codepen.io/296057/fem-purple-arms.jpg');
+    background-size: contain;
+  }
+  .diamonds li:nth-child(2) {
+    background-image: url('https://assets.codepen.io/296057/fem-fireworks.jpg');
+    background-size: contain;
+  }
+  .diamonds li:nth-child(3) {
+    background-image: url('https://assets.codepen.io/296057/fem-blue-arms.jpg');
+    background-size: contain;
+  }
+  .diamonds li:nth-child(4) {
+    background-image: url('https://assets.codepen.io/296057/fem-camera.jpg');
+    background-size: contain;
+  }
+  .diamonds li:nth-child(5) {
+    background-image: url('https://assets.codepen.io/296057/fem-stripe.jpg');
+    background-size: contain;
+  }
+  .diamonds li:nth-child(6) {
+    background-image: url('https://assets.codepen.io/296057/fem-purple-hands.jpg');
+    background-size: contain;
+  }
+  .diamonds li:nth-child(7) {
+    background-image: url('https://assets.codepen.io/296057/fem-firework.jpg');
+    background-size: contain;
+  }
+  .diamonds li:nth-child(8) {
+    background-image: url('https://assets.codepen.io/296057/fem-stadium.jpg');
+    background-size: contain;
+  }
+  .diamonds li:nth-child(9) {
+    background-image: url('https://assets.codepen.io/296057/fem-flag.jpg');
+    background-size: contain;
+  }
+  .diamonds li:nth-child(10) {
+    background-image: url('https://assets.codepen.io/296057/fem-women.jpg');
+    background-size: contain;
+    margin-top: calc(-0.5 * var(--sq) - (0.5 * var(--sq-gap)));
   }
 
-  .bolt-album img {
-    height: 8.4rem;
-    width: 8.4rem;
+  @media (min-width: 324px) {
+    .diamond-container {
+      --sq: 150px;
+      --sq-gap: 3px;
+      --max-width: 325px;
+    }
+    /* turn off image rotation */
+    .diamonds li:nth-child(odd) {
+      transform: rotate(0deg);
+    }
+    .diamonds li:nth-child(even) {
+      transform: rotate(0deg);
+    }
+    /* start with the diamonds in a basic flexbox layout */
+    .diamonds {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      gap: var(--sq-gap);
+      padding-left: calc(0.5 * var(--sq));
+      padding-top: calc(0.5 * var(--sq));
+    }
+    /* display as diamonds and make them overlap a bit */
+    .diamonds li {
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      margin-left: calc(-0.5 * var(--sq));
+      margin-bottom: 0;
+    }
+
+    /* For every 3rd diamond, starting with the second, pull it up in space from its current location */
+    .diamonds li:nth-child(3n + 2) {
+      margin-top: calc((-0.5 * var(--sq)) - (0.5 * var(--sq-gap)));
+    }
+  }
+
+  /* at the next breakpoint, just change the variables to make things bigger */
+  @media (min-width: 440px) {
+    .diamond-container {
+      --sq: 200px;
+      --sq-gap: 4px;
+      --max-width: 440px;
+    }
+  }
+  @media (min-width: 800px) {
+    .diamond-container {
+      --sq: 250px;
+      --sq-gap: 6px;
+      --max-width: 550px;
+    }
   }
 }
 @layer footer {
@@ -737,33 +889,33 @@
     fill: var(--cyan);
   }
 }
-
 @media (min-width: 800px) {
-  .wrapper,
-  .album,
-  .btn-fullwidth {
+  .wrapper {
     max-width: 800px;
   }
-
-  .bandname {
-    display: inline-block;
-  }
 }
-
-@media (min-width: 1000px) {
-  .wrapper,
-  .album,
-  .btn-fullwidth {
+@media (min-width: 1400px) {
+  .wrapper {
     max-width: 1440px;
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+  }
+  .hidetablet,
+  .hidemobile {
     display: block;
   }
-  #top ul {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
+  .left {
+    grid-column: 1/2;
+    grid-row: 1/2;
   }
-}
-
-.hidden {
-  visibility: collapse;
+  .right {
+    grid-column: 2/3;
+    grid-row: 1/3;
+    margin-bottom: 5rem;
+  }
+  footer {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    margin-top: -20rem;
+  }
 }
