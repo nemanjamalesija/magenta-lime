@@ -124,8 +124,359 @@
   }
   .wrapper {
     margin: 0 auto;
+    padding: 0 1rem;
   }
 }
+
+@layer nav {
+  #top {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+    font-family: var(--cursive);
+    max-width: 850px;
+    margin: 4rem auto;
+  }
+
+  #top ul {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+  }
+
+  #top h1 {
+    font-size: var(--h3);
+    margin: 0;
+  }
+  #top h1 a:hover {
+    color: var(--lime);
+  }
+
+  #top a {
+    display: block;
+    text-decoration: none;
+    color: var(--white);
+  }
+  #top > nav a:focus,
+  #top > nav a:hover {
+    color: var(--magenta);
+  }
+  .bandname {
+    padding-left: 1rem;
+    display: none;
+  }
+
+  @media (max-width: 1000px) {
+    #mainMenuOpen {
+      display: block;
+      font-size: 2rem;
+      line-height: 1;
+      border: 0;
+      background: transparent;
+      color: var(--magenta);
+    }
+    /* hamburger icon itself - unicode character */
+    #mainMenuOpen::after {
+      content: '\2630';
+    }
+    /* style the navbar offscreen - position the box on screen */
+    #mainMenuOpen + nav {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      display: flex;
+      padding-top: 100px;
+      justify-content: center;
+      opacity: 0;
+      background: #000d;
+      transition: left 0s 0.5s, opacity 0.5s;
+    }
+    /* transition from off screen to onscreen navbar */
+    #mainMenuOpen:focus + nav,
+    #mainMenuOpen + nav:focus-within {
+      left: 0;
+      opacity: 1;
+      transition: left 0s, opacity 0.5s;
+    }
+    /* box containing links - transition onscreen */
+    #mainMenuOpen + nav ul {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      position: relative;
+      top: -50vh;
+      min-width: 50vw;
+      max-width: 100vw;
+      overflow: hidden;
+      transition: top 0.5s;
+    }
+    /* transition unordered list to the screen */
+    #mainMenuOpen:focus + nav ul,
+    #mainMenuOpen + nav:focus-within ul {
+      top: 0;
+    }
+    /* link styles */
+    #top > nav a {
+      display: block;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    /* close button */
+    #mainMenuOpen + nav ul::after {
+      content: '';
+      background: url('https://assets.codepen.io/296057/fem-close.svg')
+        no-repeat center;
+      height: 2rem;
+      width: 2rem;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+@layer audio {
+  table {
+    border-collapse: collapse;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    font-family: var(--cursive);
+  }
+
+  table caption {
+    visibility: hidden;
+  }
+
+  table th {
+    text-align: left;
+    font-family: var(--sans-serif);
+    color: var(--grey);
+    border-bottom: 1px solid var(--grey);
+    padding: 1rem 0;
+  }
+
+  table td {
+    padding: 1rem 0;
+  }
+
+  table tr td:last-child {
+    color: var(--magenta);
+    font-family: var(--serif);
+  }
+
+  .cover {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+  }
+  @media (min-width: 700px) {
+    .cover img {
+      border: 2px solid var(--cyan);
+    }
+  }
+  #audio-player-container .controls {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    margin: 1rem;
+  }
+  #audio-player-container .volume {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    justify-content: center;
+    align-items: center;
+  }
+  #audio-player-container .name-play {
+    display: grid;
+    grid-template-columns: 2fr 0.5fr 2fr;
+    gap: 1rem;
+    margin: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+  #audio-player-container .play-slider {
+    display: grid;
+    grid-template-columns: 0.15fr 1fr 0.15fr;
+    align-items: center;
+  }
+  .name-play p {
+    font-family: var(--cursive);
+  }
+  .name-play p:last-of-type {
+    text-align: right;
+  }
+  #audio-player-container {
+    --seek-before-width: 0%;
+    --volume-before-width: 100%;
+    --buffered-width: 0%;
+  }
+  #audio-player-container button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+
+  button#mute-icon {
+    width: 2rem;
+    margin-left: 1rem;
+  }
+  button#play-icon {
+    display: block;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--lime);
+    width: 3rem;
+    height: 3rem;
+  }
+  button#play-icon:hover {
+    background-color: var(--cyan);
+  }
+  button#play-icon path {
+    stroke: var(--black);
+  }
+  #audio-player-container path {
+    stroke: var(--white);
+  }
+  #current-time {
+    text-align: left;
+  }
+  #duration {
+    text-align: right;
+  }
+  #audio-player-container output {
+    display: inline-block;
+    text-align: center;
+  }
+  #volume-slider {
+    width: 100%;
+    margin: 10px 2.5%;
+  }
+  #volume-slider::-webkit-slider-runnable-track {
+    background: rgba(0, 125, 181, 0.6);
+  }
+  #volume-slider::-moz-range-track {
+    background: rgba(0, 125, 181, 0.6);
+  }
+  #volume-slider::-ms-fill-upper {
+    background: rgba(0, 125, 181, 0.6);
+  }
+  #volume-slider::before {
+    width: var(--volume-before-width);
+  }
+  input[type='range'] {
+    position: relative;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+    height: 19px;
+    background-color: transparent;
+  }
+  input[type='range']::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    background: linear-gradient(
+      to right,
+      rgba(0, 125, 181, 0.6) var(--buffered-width),
+      rgba(0, 125, 181, 0.2) var(--buffered-width)
+    );
+  }
+  input[type='range']::before {
+    position: absolute;
+    content: '';
+    top: 8px;
+    left: 0;
+    width: var(--seek-before-width);
+    height: 3px;
+    background-color: var(--cyan);
+    cursor: pointer;
+  }
+  input[type='range']::-webkit-slider-thumb {
+    position: relative;
+    -webkit-appearance: none;
+    box-sizing: content-box;
+    border: 1px solid var(--cyan);
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+    margin: -7px 0 0 0;
+  }
+  input[type='range']:active::-webkit-slider-thumb {
+    transform: scale(1.2);
+    background: var(--cyan);
+  }
+  input[type='range']::-moz-range-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    background: linear-gradient(
+      to right,
+      rgba(0, 125, 181, 0.6) var(--buffered-width),
+      rgba(0, 125, 181, 0.2) var(--buffered-width)
+    );
+  }
+  input[type='range']::-moz-range-progress {
+    background-color: var(--cyan);
+  }
+  input[type='range']::-moz-focus-outer {
+    border: 0;
+  }
+  input[type='range']::-moz-range-thumb {
+    box-sizing: content-box;
+    border: 1px solid #007db5;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  input[type='range']:active::-moz-range-thumb {
+    transform: scale(1.2);
+    background: var(--cyan);
+  }
+  input[type='range']::-ms-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    background: transparent;
+    border: solid transparent;
+    color: transparent;
+  }
+  input[type='range']::-ms-fill-lower {
+    background-color: var(--cyan);
+  }
+  input[type='range']::-ms-fill-upper {
+    background: linear-gradient(
+      to right,
+      rgba(0, 125, 181, 0.6) var(--buffered-width),
+      rgba(0, 125, 181, 0.2) var(--buffered-width)
+    );
+  }
+  input[type='range']::-ms-thumb {
+    box-sizing: content-box;
+    border: 1px solid var(--cyan);
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  input[type='range']:active::-ms-thumb {
+    transform: scale(1.2);
+    background: var(--cyan);
+  }
+}
+
 @layer reviews {
   .imggroup {
     margin-top: 2rem;
@@ -313,11 +664,21 @@
     max-width: 800px;
   }
 
-  @media (min-width: 1000px) {
-    .wrapper,
-    .album,
-    .btn-fullwidth {
-      max-width: 1440px;
-    }
+  .bandname {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 1000px) {
+  .wrapper,
+  .album,
+  .btn-fullwidth {
+    max-width: 1440px;
+    display: block;
+  }
+  #top ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
   }
 }
