@@ -149,9 +149,6 @@
     display: none;
   }
   @media (min-width: 800px) {
-    .wrapper {
-      max-width: 800px;
-    }
     .hidemobile {
       display: block;
     }
@@ -165,9 +162,6 @@
   @media (min-width: 1000px) {
     .hidetablet {
       display: block;
-    }
-    .wrapper {
-      max-width: 1440px;
     }
   }
   @media (min-width: 1025px) {
@@ -194,6 +188,16 @@
     margin: 3rem auto 1rem auto;
     padding: 1rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .album img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
   }
   .album h1 {
     color: var(--lime);
@@ -232,6 +236,15 @@
     margin: 2rem auto;
     border-radius: 0;
   }
+
+  .bolt-album {
+    text-align: center;
+  }
+
+  .bolt-album img {
+    height: 8.4rem;
+    width: 8.4rem;
+  }
 }
 @layer footer {
   footer {
@@ -252,5 +265,21 @@
   }
   footer svg:hover {
     fill: var(--cyan);
+  }
+}
+
+@media (min-width: 800px) {
+  .wrapper,
+  .album,
+  .btn-fullwidth {
+    max-width: 800px;
+  }
+
+  @media (min-width: 1000px) {
+    .wrapper,
+    .album,
+    .btn-fullwidth {
+      max-width: 1440px;
+    }
   }
 }
