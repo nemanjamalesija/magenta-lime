@@ -479,6 +479,55 @@
   }
 }
 
+@layer tracklist {
+  .tracklist {
+    border: 1px solid var(--magenta);
+    padding: 0 1rem;
+  }
+
+  .tracklist:hover {
+    border-color: var(--cyan);
+  }
+
+  .tracklist-control {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .tracklist-control:hover {
+    border-color: var(--cyan);
+  }
+
+  .tracklist-control:hover h2 {
+    color: var(--cyan);
+  }
+
+  .tracklist-control h2 {
+    font-size: var(--h5);
+    font-family: var(--serif);
+    color: var(--magenta);
+    margin: 0;
+    padding: 1.3rem 0;
+    cursor: pointer;
+  }
+
+  .tracklist-control__close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .tracklist-control__close svg {
+    height: 1.6rem;
+    width: 1.6rem;
+  }
+
+  .hidden {
+    display: none;
+  }
+}
+
 @layer icons_audio {
   .icons {
     position: absolute;
@@ -713,4 +762,8 @@
     flex-flow: row wrap;
     justify-content: flex-end;
   }
+}
+
+.hidden {
+  visibility: collapse;
 }

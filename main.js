@@ -169,3 +169,23 @@ volumeSlider.addEventListener('input', (e) => {
   outputContainer.textContent = value;
   audio.volume = value / 100;
 });
+
+/* Hide and display the playlist */
+
+const trackControl = document.querySelector('.tracklist-control');
+const tracklistOpen = trackControl.querySelector('.tracklist-control__open');
+const tracklistClose = trackControl.querySelector('.tracklist-control__close');
+
+const table = document.querySelector('table');
+
+tracklistOpen.addEventListener('click', () => {
+  table.classList.remove('hidden');
+  tracklistOpen.classList.add('hidden');
+  tracklistClose.classList.remove('hidden');
+});
+
+tracklistClose.addEventListener('click', () => {
+  table.classList.add('hidden');
+  tracklistOpen.classList.remove('hidden');
+  tracklistClose.classList.add('hidden');
+});
